@@ -58,6 +58,7 @@ This package includes:
   compile/evaluate ClojureScript programs)
 * the ClojureScript standard library
 * a script (runcljs) for running cljs files
+* a REPL
 * the source files used to generate a thin wrapper around the compiler and
   supply it with a means of resolving required files
 * a script for bootstrapping the compiler from the java-based ClojureScript

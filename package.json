@@ -21,7 +21,8 @@
   },
   "main": "./lib/clojurescript",
   "bin": {
-    "runcljs": "./bin/runcljs"
+    "runcljs": "./bin/runcljs",
+    "cljsrepl": "./bin/cljsrepl"
   },
   "homepage": "https://github.com/stevebob/clojurescript-nodejs",
   "bugs": {

@@ -11,6 +11,8 @@ String.prototype.attribute = function(attr, match) {
   return this.replace(match, "\x1b[" + attr + "m$1\x1b[0m");
 }
 
+global.user = {};
+
 repl.start({
   writer: function(x) {
     return prStr(x)
@@ -19,12 +21,21 @@ repl.start({
             .attribute("32", /(\"[^\"]+")/g)
             .attribute("36", /(#\w+)/g);
   },
-  
+
   eval: function(cmd, context, filename, callback) {
     if(cmd == ".scope") {
       callback(null, []);
     } else {
-      callback(null, cljs.eval(cmd, [], true));
+      /* Prelude made up of a namespace declaration and a declaration of
+       * all defined names. The namespace is a globally-accessible symbol
+       * (in javascript) which allows this script (the repl) and the
+       * clojurescript runtime to access it. It persists across commands
+       * allowing values defined in a previous command to be accessed
+       * in the current command. */
+      var prelude = ["(ns global.user)"].concat(Object.keys(global.user)
+        .map(function(variable) { return "(declare " + variable + ")" }))
+        .join(" ");
+      callback(null, cljs.eval(prelude + "(identity " + cmd + ")", [], false));
     }
   }
 });

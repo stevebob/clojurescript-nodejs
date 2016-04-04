@@ -3,14 +3,17 @@ ClojureScript bootstrapped into JavaScript
 
 Making the ClojureScript language usable from nodejs
 
-Command line usage:
+Command Line Tool
+-----------------
 ```bash
 $ echo '(ns hello.world (:require [clojure.string :as str])) (println (str/reverse "Hello, World"))' > a.cljs
 $ bin/runcljs a.cljs
 dlroW ,olleH
 ```
 
-JavaScript API:
+JavaScript API
+--------------
+
 ```javascript
 cljs = require('clojurescript-nodejs');
 

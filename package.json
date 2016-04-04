@@ -1,6 +1,6 @@
 {
-  "name": "clojurescript",
-  "description": "The ClojureScript Programming Language, packaged for Node.js",
+  "name": "clojurescript-nodejs",
+  "description": "The ClojureScript Programming Language, bootstrapped into JavaScript",
   "keywords": [
     "language",
     "clojurescript",
@@ -10,7 +10,7 @@
     "immutable",
     "compiler"
   ],
-  "author": "Ramsey Nasser",
+  "author": "Stephen Sherratt",
   "version": "0.0.1",
   "license": "Eclipse",
   "engines": {
@@ -23,10 +23,10 @@
   "bin": {
     "cljs": "./bin/cljs"
   },
-  "homepage": "http://nasser.github.io/clojurescript-npm",
-  "bugs": "https://github.com/nasser/clojurescript-npm/issues",
+  "homepage": "https://github.com/stevebob/clojurescript-nodejs",
+  "bugs": "https://github.com/stevebob/clojurescript-nodejs/issues",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nasser/clojurescript-npm.git"
+    "url": "git://github.com/stevebob/clojurescript-nodejs.git"
   }
 }

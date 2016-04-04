@@ -12,21 +12,26 @@
   ],
   "author": "Stephen Sherratt",
   "version": "0.0.1",
-  "license": "Eclipse",
+  "license": "EPL-1.0",
   "engines": {
     "node": ">=0.12.0"
   },
   "directories": {
-    "lib": "./lib"
+    "test": "tests"
   },
   "main": "./lib/clojurescript",
   "bin": {
     "cljs": "./bin/cljs"
   },
   "homepage": "https://github.com/stevebob/clojurescript-nodejs",
-  "bugs": "https://github.com/stevebob/clojurescript-nodejs/issues",
+  "bugs": {
+    "url": "https://github.com/stevebob/clojurescript-nodejs/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/stevebob/clojurescript-nodejs.git"
+  },
+  "scripts": {
+    "test": "tests/run-all.sh"
   }
 }

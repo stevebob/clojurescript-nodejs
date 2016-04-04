@@ -5,7 +5,7 @@ var fs   = require('fs');
 var lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
 
 var cljs = require(lib + '/clojurescript');
-var prStr = cljs.eval("pr-str");
+var prStr = cljs.eval("pr-str", [], true);
 
 String.prototype.attribute = function(attr, match) {
   return this.replace(match, "\x1b[" + attr + "m$1\x1b[0m");
@@ -24,7 +24,7 @@ repl.start({
     if(cmd == ".scope") {
       callback(null, []);
     } else {
-      callback(null, cljs.eval(cmd));
+      callback(null, cljs.eval(cmd, [], true));
     }
   }
 });

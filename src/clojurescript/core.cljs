@@ -73,29 +73,37 @@
           :source (.readFileSync node-fs require-file "utf8")
         })))))
 
-(defn ^:export eval ([in-str library-paths]
+(defn ^:export eval ([in-str] (eval in-str []))
+                    ([in-str library-paths] (eval in-str library-paths false))
+                    ([in-str library-paths expr]
   (cljs/eval-str (cljs/empty-state)
                  in-str 'bar
-                 {:eval cljs/js-eval
-                  :def-emits-var true
-                  :load (mk-load-fn library-paths)}
+                 (let [options {:eval cljs/js-eval
+                                :def-emits-var true
+                                :load (mk-load-fn library-paths)}]
+                      (if expr (assoc options :context :expr)
+                               options))
                  (fn [{:keys [error value]}]
                    (if-not error
                      value
                      (do
                        (.error js/console error)))))))
 
-(defn ^:export compile [in-str library-paths]
+(defn ^:export compile ([in-str] (eval in-str []))
+                       ([in-str library-paths] (eval in-str library-paths false))
+                       ([in-str library-paths expr]
   (cljs/compile-str (cljs/empty-state)
                     in-str 'bar
-                    {:eval cljs/js-eval
-                     :def-emits-var true
-                     :load (mk-load-fn library-paths)}
+                    (let [options {:eval cljs/js-eval
+                                   :def-emits-var true
+                                   :load (mk-load-fn library-paths)}]
+                         (if expr (assoc options :context :expr)
+                                 options))
                     (fn [{:keys [error value]}]
                       (if-not error
                         value
                         (do
-                          (.error js/console error))))))
+                          (.error js/console error)))))))
 
 (set! *main-cli-fn*
       (fn []))

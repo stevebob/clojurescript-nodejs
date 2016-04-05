@@ -11,7 +11,7 @@
     "compiler"
   ],
   "author": "Stephen Sherratt",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "EPL-1.0",
   "engines": {
     "node": ">=0.12.0"

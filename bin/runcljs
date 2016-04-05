@@ -1,21 +1,42 @@
 #!/usr/bin/env node
+var argv = require('yargs')
+    .usage('Usage: $0 file [options]')
+    .command('runcljs', 'Evaluate or compile a clojurescript file')
+    .demand(1)
+    .describe('c', 'Compile the file to javascript instead of running it')
+    .nargs('c', 0)
+    .alias('c', 'compile')
+    .describe('p', 'Import path (may specify multiple times)')
+    .nargs('p', 1)
+    .alias('p', 'path')
+    .describe('o', 'Store compiled code in a given file. Assumes -c.')
+    .nargs('o', 1)
+    .alias('o', 'output')
+    .help('h')
+    .alias('h', 'help')
+    .argv;
 
 var cljs = require('../lib/clojurescript');
 var fs = require('fs');
 var path = require('path');
 
-var filename = path.basename(__filename);
+var sourcename = argv._[0];
+var sourcedir = path.dirname(sourcename);
 
-var usage = 'Usage: ' + filename + ' program.cljs';
-
-var args = process.argv.slice(2);
-
-if (args.length !== 1) {
-    console.log(usage);
-    process.exit();
+var librarypaths = [sourcedir];
+if (argv.p instanceof Array) {
+    librarypaths = argv.p.concat(librarypaths);
+} else if (typeof argv.p == 'string') {
+    librarypaths.push(argv.p);
 }
 
-var sourcename = args[0];
-var sourcedir = path.dirname(sourcename);
-var source = fs.readFileSync(sourcename, 'utf8');
-cljs.eval(source, [sourcedir]);
+if (argv.c || argv.o) {
+    var result = cljs.compilefile(sourcename, librarypaths);
+    if (argv.o) {
+        fs.writeFile(argv.o, result);
+    } else {
+        process.stdout.write(result);
+    }
+} else {
+    cljs.evalfile(sourcename, librarypaths);
+}

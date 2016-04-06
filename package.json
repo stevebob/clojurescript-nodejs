@@ -35,7 +35,7 @@
   "scripts": {
     "test": "tests/run-all.sh"
   },
-  "devDependencies": {
+  "dependencies": {
     "yargs": "^4.4.0"
   }
 }
